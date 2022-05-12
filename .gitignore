@@ -1,0 +1,4 @@
+obj/*
+build/*
+tools/__pycache__/*
+

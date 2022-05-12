@@ -1,0 +1,3 @@
+[submodule "tools/cfront"]
+	path = tools/cfront
+	url = https://github.com/mingodad/cfront-3

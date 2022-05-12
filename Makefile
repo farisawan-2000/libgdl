@@ -4,7 +4,9 @@ TARGET_STRING := gdl
 TARGET := $(TARGET_STRING)
 
 # Preprocessor definitions
-DEFINES := _FINALROM=1 NDEBUG=1 F3DEX_GBI=1 _LANGUAGE_C_PLUS_PLUS=1
+DEFINES := _FINALROM=1 NDEBUG=1 F3DEX_GBI=1 _LANGUAGE_C_PLUS_PLUS=1 __sgi=1
+
+IGNORE_WARNS := -Wno-builtin-declaration-mismatch -Wno-write-strings
 
 SRC_DIRS :=
 
@@ -53,6 +55,8 @@ DEP_FILES := $(O_FILES:.o=.d) $(ASM_O_FILES:.o=.d)  $(BUILD_DIR)/$(LD_SCRIPT).d
 
 AS        := mips-n64-as
 CC        := mips-n64-gcc
+# CFRONT    := tools/cfront/cfront
+CFRONT    := ~/qemu-irix -L ~/Decomps/kirby64/tools/ido7.1/ ~/Decomps/kirby64/tools/ido7.1/usr/lib/c++/cfront
 CPP       := cpp
 LD        := mips-n64-ld
 AR        := mips-n64-ar
@@ -118,9 +122,9 @@ $(BUILD_DIR)/%.o: %.c
 	$(V)$(CC) -c $(CFLAGS) -MMD -MF $(BUILD_DIR)/$*.d  -o $@ $<
 $(BUILD_DIR)/%.o: %.cpp
 	$(call print,Compiling:,$<,$@)
-	g++ -std=c++98 -fsyntax-only $(DEF_INC_CFLAGS) $<
+	g++ -std=c++98 $(IGNORE_WARNS) -fsyntax-only $(DEF_INC_CFLAGS) $<
 	cpp -P $(DEF_INC_CFLAGS) -MMD -MF $(BUILD_DIR)/$*.d -o $(@D)/$(@F).cc $<
-	tools/cfront/cfront < $(@D)/$(@F).cc > $(@D)/$(@F).i
+	$(CFRONT) < $(@D)/$(@F).cc > $(@D)/$(@F).i
 	$(IDO_CC) -c $(IDO_CFLAGS) -o $@ $(@D)/$(@F).i
 $(BUILD_DIR)/%.o: $(BUILD_DIR)/%.c
 	$(call print,Compiling:,$<,$@)

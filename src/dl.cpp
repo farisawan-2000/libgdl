@@ -8,6 +8,8 @@ struct DrawMode {
     u32 mode; // _004
 };
 
+
+
 char *GenChildName(char *child, char *parent) {
     char buf[64];
 
@@ -123,7 +125,10 @@ u32 RenderMode(DrawMode *dm) {
 
 unsigned int RenderMode2__FP8DrawMode();
 
-DisplayList* __ct__11DisplayListFPcUiN42();
+class DisplayList {
+    public:
+        DisplayList(char *, u32, u32, u32, u32, u32) ;
+};
 
 void Reset__11DisplayListFv();
 
@@ -161,10 +166,10 @@ void GenStartDraw__11DisplayListFP6Window();
 
 void GenFrameBufferSetup__11DisplayListFPUsT1iT3R15rgba_t__pt__2_fN63();
 
-SubDisplayList* __ct__14SubDisplayListFPc();
-
-SubDisplayList* __ct__14SubDisplayListFPcP11DisplayList();
-
-SubDisplayList* __ct__14SubDisplayListFPciP11DisplayList();
+class SubDisplayList {
+    SubDisplayList(char *);
+    SubDisplayList(char *, DisplayList *);
+    SubDisplayList(char *, int, DisplayList *);
+};
 
 void SetParent__14SubDisplayListFP11DisplayList();

@@ -1,4 +1,5 @@
 obj/*
 build/*
 tools/__pycache__/*
+objasm/*
 

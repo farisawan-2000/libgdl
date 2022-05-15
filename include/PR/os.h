@@ -73,6 +73,8 @@ typedef struct OSThread_s {
 	__OSThreadContext	context;	/* register/interrupt mask */
 } OSThread;
 
+extern OSThread *__osActiveQueue;
+
 typedef u32 OSEvent;
 typedef u32 OSIntMask;
 typedef u32 OSPageMask;

@@ -2,4 +2,6 @@ obj/*
 build/*
 tools/__pycache__/*
 objasm/*
+libgdl_u64.a
+objmdebug/*
 

@@ -59,4 +59,7 @@ class ConsoleMgr {
 
 };
 
+typedef void *outfun(void*, const char*, int);
+extern "C" int _Printf(outfun prout, char *arg, const char *fmt, va_list args);
+
 #endif

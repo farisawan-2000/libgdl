@@ -1,8 +1,7 @@
 #ifndef APP_HPP
 #define APP_HPP
 
-// #include "console.hpp"
-typedef u32 Console;
+#include "console.hpp"
 
 class App {
     public:

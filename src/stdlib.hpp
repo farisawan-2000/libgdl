@@ -1,7 +1,6 @@
 #ifndef STDLIB_H
 #define STDLIB_H
 
-typedef u32 size_t;
 #define CLINK extern "C"
 
 extern "C" {

@@ -7,10 +7,6 @@
 
 #define NONMATCH
 
-typedef void *outfun(void*, const char*, int);
-
-extern "C" int _Printf(outfun prout, char *arg, const char *fmt, va_list args);
-
 Console::Console(char *, int, int, int, int, rgba_t<float>) {
     //decomp
 }
@@ -73,8 +69,11 @@ void Console::Clear() {
 
 }
 
+// weird function pls look at it
 void* Console::_GLBprintf(void *vp, const char *fmt, int a) {
-    return 0;
+    Console *con = Console::currPrint;
+
+    return con->_printf(0, (const char *)vp, (int)fmt);
 }
 
 ConsoleMgr::ConsoleMgr() {

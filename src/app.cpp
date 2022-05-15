@@ -3,15 +3,16 @@
 #include <ultra64.h>
 #include "stdlib.hpp"
 #include "app.hpp"
+#include "syslib.hpp"
 
 void *New(u32, u32);
 
 
-void *operator new(u32 siz) {
+void *operator new(size_t siz) {
     return New(siz, 0);
 }
 
-void *operator new(u32 siz, u32 align) {
+void *operator new(size_t siz, u32 align) {
     return New(siz, align);
 }
 
@@ -128,12 +129,12 @@ void App::Init() {
     // BaseWindow::Def.screenWidth = 0;
     // BaseWindow::Def.unk4 = 0;
     // BaseWindow::Def.unk0 = 0;
-    // Start__10MemTrackerSFPci("SysLib", 0);
+    // MemTracker::Start("SysLib", 0);
     // sys.Init__6SysLibFv();
-    // Stop__10MemTrackerSFv();
-    // Start__10MemTrackerSFPci("GfxLib", 0);
+    // MemTracker::Stop();
+    // MemTracker::Start("GfxLib", 0);
     // gfx.Init__6GfxLibFv();
-    // Stop__10MemTrackerSFv();
+    // MemTracker::Stop();
 
     // Controller *sController = new Controller; // size 0x84
     // if (sController != NULL) {

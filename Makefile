@@ -4,7 +4,7 @@ TARGET_STRING := gdl
 TARGET := $(TARGET_STRING)
 
 # Preprocessor definitions
-DEFINES := _FINALROM=1 NDEBUG=1 F3DEX_GBI=1 _LANGUAGE_C_PLUS_PLUS=1 __sgi=1
+DEFINES := _FINALROM=1 NDEBUG=1 F3DEX_GBI=1 _MIPS_SZLONG=32 _LANGUAGE_C_PLUS_PLUS=1 __sgi=1
 
 IGNORE_WARNS := -Wno-builtin-declaration-mismatch -Wno-write-strings
 
@@ -119,10 +119,10 @@ DUMMY != mkdir -p $(ALL_DIRS)
 # Compile C code
 $(BUILD_DIR)/%.o: %.c
 	$(call print,Compiling:,$<,$@)
-	$(V)$(CC) -c $(CFLAGS) -MMD -MF $(BUILD_DIR)/$*.d  -o $@ $<
+	$(IDO_CC) -c $(IDO_CFLAGS) -o $@ $<
 $(BUILD_DIR)/%.o: %.cpp
 	$(call print,Compiling:,$<,$@)
-	g++ -std=c++98 $(IGNORE_WARNS) -fsyntax-only $(DEF_INC_CFLAGS) $<
+	g++ -fsigned-char -m32 -nostdinc -std=c++98 $(IGNORE_WARNS) -fsyntax-only $(DEF_INC_CFLAGS) $<
 	cpp -P $(DEF_INC_CFLAGS) -MMD -MF $(BUILD_DIR)/$*.d -o $(@D)/$(@F).cc $<
 	$(CFRONT) < $(@D)/$(@F).cc > $(@D)/$(@F).i
 	$(IDO_CC) -c $(IDO_CFLAGS) -o $@ $(@D)/$(@F).i
@@ -149,7 +149,7 @@ $(ELF): $(O_FILES) $(BUILD_DIR)/$(LD_SCRIPT)
 	$(V)$(LD) -L $(BUILD_DIR) -T $(BUILD_DIR)/$(LD_SCRIPT) -Map $(BUILD_DIR)/$(TARGET).map --no-check-sections -o $@ $(O_FILES) -L/usr/lib/n64 -lultra_rom -L$(N64_LIBGCCDIR) -lgcc
 
 # Build ROM
-$(ROM): $(CPP_OFILES)
+$(ROM): $(CPP_OFILES) $(O_FILES)
 	$(call print,done!)
 
 .PHONY: clean default

@@ -1,14 +1,16 @@
 #ifndef CONTROL_HPP
 #define CONTROL_HPP
 
+typedef int ControllerRecordEntry;
+
 class Controller {
 	public:
 		int Init(int);
 		void Reset(int);
 		void Pause(int);
 		void CloseDown(void);
-		bool HasShaker(void);
-		bool IsConnected(void);
+		u8 HasShaker(void);
+		u8 IsConnected(void);
 		void Update(void);
 		void StartRecord(ControllerRecordEntry *, u32, u32 *);
 		void StartPlay(ControllerRecordEntry *, u32);

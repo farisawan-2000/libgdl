@@ -1,15 +1,57 @@
+#ifndef MATH_HPP
+#define MATH_HPP
+
+class Quat;
+template <class T> class Vector3;
+class Plane;
+
+class matrix4 {
+    public:
+        void ConvertFrom(Quat&);
+        void CopyTo(matrix4*);
+        void Copy3x3To(matrix4*);
+        void AddTo(matrix4*,matrix4*);
+        void SubTo(matrix4*,matrix4*);
+        void TransposeTo(matrix4*);
+        void Inverse(matrix4*);
+        void ReOrthogonalize(int);
+        void ConstMulTo(float,matrix4*);
+        void Mul3x3To(matrix4*,matrix4*);
+        void Ident(void);
+        void Ident3x3(void);
+        void Trans(Vector3<float>*);
+        void Scale(Vector3<float>*);
+        void Rotate(Vector3<float>*,float);
+        void Rotate(Vector3<float>*);
+        void AbsRot(int,float,int);
+        void RelRot(int,float,int);
+        void Align(const Vector3<float>&,float);
+        void GenRotate(Vector3<float>&,float);
+        void GenShadow(Vector3<float>*,Plane*);
+        void GenOrtho(float,float,float,float,float,float,float);
+        void GenPerspective(float,float,float,float);
+        void GenLookAt(float,float,float,float,float,float,float,float,float);
+        void GenBallRotate(matrix4*,float,float,float,int);
+        matrix4 *operator = (float);
+
+        float m[4][4];
+};
 
 template <class T> class Vector3 {
     public:
+        void GenHostIO(T t1,T t2,T t3,T t4,T t5,T t6);
+        void MulByRotMtxT(matrix4 *m);
+        void CrossProd(const Vector3<T> *v1, Vector3<T> *v2);
+        int Normalise();
+
         T x;
         T y;
         T z;
 };
 
 typedef float quat[4];
-class matrix4;
 
-void conv_matrix__FP7matrix4();
+void conv_matrix(matrix4 *);
 
 float mysqrtf(float);
 
@@ -23,38 +65,36 @@ float CalcLength(Vector3<float>*);
 
 void InvertMatrix3d(float [4][4], float [4][4]);
 
-void adjoint__FP7matrix4T1();
+void adjoint(matrix4 *, matrix4 *);
 
-float det4x4__FP7matrix4();
+float det4x4(matrix4 *);
 
 float det3x3(float, float, float,
              float, float, float,
              float, float, float
 );
 
-float det2x2__FfN31();
+float det2x2(float, float, float, float);
 
-void set_obs_position__FP4quatP16Vector3__pt__2_ffN23();
+void set_obs_position(quat*,Vector3<float>*,float,float,float);
 
-void translate_quaternion__FP4quatP16Vector3__pt__2_ffiT4();
+void translate_quaternion(quat*,Vector3<float>*,float,int,int);
 
-void print_vector3__FPcP16Vector3__pt__2_f();
+void print_vector3(char*,Vector3<float>*);
 
-void print_matrix4__FPcP7matrix4();
+void print_matrix4(char*,matrix4*);
 
-void print_quat__FPcP4quat();
+void print_quat(char*,quat*);
 
-template class Vector3<float> {
-
+class LongBox {
+    public:
+        int InBox(LongBox *);
 };
-void GenHostIO__16Vector3__pt__2_fFfN51();
-void MulByRotMtxT(matrix4 *);
-void CrossProd(const Vector3<float> *,Vector3<float> *);
-int Normalise();
 
-int InBox__7LongBoxFP7LongBox();
-
-void Init__5PlaneFP16Vector3__pt__2_fN21();
+class Plane {
+    public:
+        void Init(Vector3<float>*,Vector3<float>*,Vector3<float>*);
+};
 
 class Quat {
     public:
@@ -70,7 +110,7 @@ class Quat {
         void Normalise();
         void FromBallPoints(Vector3<float> &, Vector3<float> &);
         void ToBallPoints(Vector3<float> &, Vector3<float> &);
-}
+};
 
 class VQS {
     public:
@@ -78,38 +118,14 @@ class VQS {
         void MulTo(VQS &, VQS &);
 };
 
-void _InitSCRot__7matrix4FP16Vector3__pt__2_ffT2();
-void _Align__7matrix4FP16Vector3__pt__2_ff();
-void _Align__7matrix4FP16Vector3__pt__2_fT1();
-void ConvertTo__7matrix4FR4Quat();
-void ConvertFrom__7matrix4FR4Quat();
-void CopyTo__7matrix4FP7matrix4();
-void Copy3x3To__7matrix4FP7matrix4();
-void AddTo__7matrix4FP7matrix4T1();
-void SubTo__7matrix4FP7matrix4T1();
-void TransposeTo__7matrix4FP7matrix4();
-void Inverse__7matrix4FP7matrix4();
-void ReOrthogonalize__7matrix4Fi();
-void ConstMulTo__7matrix4FfP7matrix4();
-void Mul3x3To__7matrix4FP7matrix4T1();
-void Ident__7matrix4Fv();
-void Ident3x3__7matrix4Fv();
-void Trans__7matrix4FP16Vector3__pt__2_f();
-void Scale__7matrix4FP16Vector3__pt__2_f();
-void Rotate__7matrix4FP16Vector3__pt__2_ff();
-void Rotate__7matrix4FP16Vector3__pt__2_f();
-void AbsRot__7matrix4FifT1();
-void RelRot__7matrix4FifT1();
-void Align__7matrix4FRC16Vector3__pt__2_ff();
-void GenRotate__7matrix4FR16Vector3__pt__2_ff();
-void GenShadow__7matrix4FP16Vector3__pt__2_fP5Plane();
-void GenOrtho__7matrix4FfN61();
-void GenPerspective__7matrix4FfN31();
-void GenLookAt__7matrix4FfN81();
-void GenBallRotate__7matrix4FP7matrix4fN22i();
-matrix4* __as__7matrix4FPf();
+class MtxStack {
+    public:
+        MtxStack();
+};
 
+class Box {
+    public:
+        void Print();
+};
 
-MtxStack* __ct__8MtxStackFv();
-
-void Print__3BoxFv();
+#endif

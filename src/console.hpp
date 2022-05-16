@@ -2,6 +2,7 @@
 #define CONSOLE_HPP
 
 #include "gfxlib.hpp"
+#include <stdarg.h>
 
 class Console {
     public:

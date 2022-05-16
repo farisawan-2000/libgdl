@@ -7,6 +7,7 @@
 #include "stdlib.hpp"
 #include "syslib.hpp"
 #include "console.hpp"
+#include "u64cont.hpp"
 #include "boot.h"
 
 extern "C" void *gdlAllocTemp(u32 siz) {
@@ -466,7 +467,7 @@ void SysLib::ControllerShake(int a, int b) {
 }
 
 void SysLib::ControllerVibration(int a, int b, int c) {
-    contMgr.JoltController((u32) a, b, c);
+    contMgr.VibrateController((u32) a, b, c);
 }
 void SysLib::ControllerJolt(int, int, int, int, int) {
     

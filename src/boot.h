@@ -45,4 +45,7 @@ struct USODATA {
 
 extern struct USODATA *usodata;
 
-extern "C" void CheckStacks();
+#ifdef _LANGUAGE_C_PLUS_PLUS
+extern "C"
+#endif
+void CheckStacks();

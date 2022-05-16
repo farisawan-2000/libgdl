@@ -13,8 +13,8 @@ class ControllerMgr {
         void Stop();
         void RawRead();
         void ShakeController(u32, int);
-        void VibrateController(FUiiT2);
-        void JoltController(FUiiN32);
+        void VibrateController(u32, int, int);
+        void JoltController(u32, int, int, int, int, int);
         void ForceFeedback(u32);
         void ReadControllers();
         void WaitControllers();

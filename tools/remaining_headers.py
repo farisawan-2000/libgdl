@@ -9,5 +9,5 @@ fl_mdebug = [os.path.splitext(x)[0] for x in os.listdir("objmdebug/") if ".txt" 
 print("remaining headers:")
 
 for x in fl_mdebug:
-    if x not in fl_headers:
+    if x not in fl_headers and "tex" not in x:
         print("    %s"%x)

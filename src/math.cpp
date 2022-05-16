@@ -6,17 +6,64 @@
 
 void conv_matrix(matrix4 *);
 
-float mysqrtf(float);
+float mysqrtf(float f) {
+    return sqrtf(f);
+}
 
-float limitf(float, float);
+float limitf(float a, float b) {
+    if (b < a) {
+        a = b;
+    } else if (a < -b) {
+        a = -b;
+    }
 
-void limitvec(Vector3<float> *,float);
+    return a;
+}
 
-extern "C" void rotate2d();
+void limitvec(Vector3<float> *vec, float limit) {
+    if (vec->x > limit) {
+        vec->x = limit;
+    } else if (vec->x < -limit) {
+        vec->x = -limit;
+    }
+
+    if (vec->y > limit) {
+        vec->y = limit;
+    } else if (vec->y < -limit) {
+        vec->y = -limit;
+    }
+
+    if (vec->z > limit) {
+        vec->z = limit;
+    } else if (vec->z < -limit) {
+        vec->z = -limit;
+    }
+}
+
+extern "C" void rotate2d(f32 deg, f32 *x, f32 *y) {
+    f32 xP;
+    f32 yP;
+    f32 rad;
+
+    rad = deg / 57.295776f; // DEG_PER_RAD
+    xP = (*x * cosf(rad)) - (*y * sinf(rad));
+    yP = (*x * sinf(rad)) + (*y * cosf(rad));
+    *x = xP;
+    *y = yP;
+}
 
 float CalcLength(Vector3<float>*);
 
-void InvertMatrix3d(float [4][4], float [4][4]);
+void InvertMatrix3d(float src[4][4], float dst[4][4]) {
+    s32 i;
+    s32 j;
+
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 4; j++) {
+            dst[i][j] = 1.0f / src[i][j];
+        }
+    }
+}
 
 void adjoint(matrix4 *, matrix4 *);
 
@@ -181,7 +228,22 @@ void matrix4::Mul3x3To(matrix4*,matrix4*) {
 }
 
 void matrix4::Ident(void) {
-
+    this->m[0][0] = 1.0f;
+    this->m[0][1] = 0.0f;
+    this->m[0][2] = 0.0f;
+    this->m[0][3] = 0.0f;
+    this->m[1][0] = 0.0f;
+    this->m[1][1] = 1.0f;
+    this->m[1][2] = 0.0f;
+    this->m[1][3] = 0.0f;
+    this->m[2][0] = 0.0f;
+    this->m[2][1] = 0.0f;
+    this->m[2][2] = 1.0f;
+    this->m[2][3] = 0.0f;
+    this->m[3][0] = 0.0f;
+    this->m[3][1] = 0.0f;
+    this->m[3][2] = 0.0f;
+    this->m[3][3] = 1.0f;
 }
 
 void matrix4::Ident3x3(void) {

@@ -2,22 +2,18 @@
 #include <ultra64.h>
 
 #include "stdlib.hpp"
-
-struct DrawMode {
-    u32 _000;
-    u32 mode; // _004
-};
+#include "dl.hpp"
 
 
 
-char *GenChildName(char *child, char *parent) {
+u8 *GenChildName(char *child, char *parent) {
     char buf[64];
 
     strcpy(buf, child);
     strcat(buf, " (Child of ");
     strcat(buf, parent);
     strcat(buf, ")");
-    return strdup(buf);
+    return (u8*)strdup(buf);
 }
 
 int BitNum(int number) {
@@ -123,53 +119,98 @@ u32 RenderMode(DrawMode *dm) {
 }
 
 
-unsigned int RenderMode2__FP8DrawMode();
+u32 RenderMode2(DrawMode *dm) {
+    return 0;
+}
 
-class DisplayList {
-    public:
-        DisplayList(char *, u32, u32, u32, u32, u32) ;
-};
+DisplayList::DisplayList(char*,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int) {
 
-void Reset__11DisplayListFv();
+}
 
-void Overflow__11DisplayListFv();
+void DisplayList::Reset(void) {
 
-void PrintUsage__11DisplayListFv();
+}
 
-void GenSetCombineMode1__11DisplayListFP8DrawMode();
+void DisplayList::Overflow(void) {
 
-void GenSetCombineMode2__11DisplayListFP8DrawMode();
+}
 
-void GenSetCombineMode__11DisplayListFP8DrawMode();
+void DisplayList::PrintUsage(void) {
 
-void GenSetGeometryMode__11DisplayListFP8DrawMode();
+}
 
-void GenSetRenderMode__11DisplayListFP8DrawMode();
+void DisplayList::GenSetCombineMode1(DrawMode*) {
 
-void GenSetCycleMode__11DisplayListFP8DrawMode();
+}
 
-void GenSetFogParms__11DisplayListFsT1R15rgba_t__pt__2_f();
+void DisplayList::GenSetCombineMode2(DrawMode*) {
 
-void GenStartShape__11DisplayListFv();
+}
 
-void GenEndDraw__11DisplayListFv();
+void DisplayList::GenSetCombineMode(DrawMode*) {
 
-void GenSetColourBuffer__11DisplayListFPUsi();
+}
 
-void GenSetZBuffer__11DisplayListFPUs();
+void DisplayList::GenSetGeometryMode(DrawMode*) {
 
-void GenEnd__11DisplayListFv();
+}
 
-void GenLoadTexBlock__11DisplayListFP12BaseMateriali();
+void DisplayList::GenSetRenderMode(DrawMode*) {
 
-void GenStartDraw__11DisplayListFP6Window();
+}
 
-void GenFrameBufferSetup__11DisplayListFPUsT1iT3R15rgba_t__pt__2_fN63();
+void DisplayList::GenSetCycleMode(DrawMode*) {
 
-class SubDisplayList {
-    SubDisplayList(char *);
-    SubDisplayList(char *, DisplayList *);
-    SubDisplayList(char *, int, DisplayList *);
-};
+}
 
-void SetParent__14SubDisplayListFP11DisplayList();
+void DisplayList::GenSetFogParms(short,short,rgba_t<float>&) {
+
+}
+
+void DisplayList::GenStartShape(void) {
+
+}
+
+void DisplayList::GenEndDraw(void) {
+
+}
+
+void DisplayList::GenSetColourBuffer(unsigned short*,int) {
+
+}
+
+void DisplayList::GenSetZBuffer(unsigned short*) {
+
+}
+
+void DisplayList::GenEnd(void) {
+
+}
+
+void DisplayList::GenLoadTexBlock(BaseMaterial*,int) {
+
+}
+
+void DisplayList::GenStartDraw(Window*) {
+
+}
+
+void DisplayList::GenFrameBufferSetup(unsigned short*,unsigned short*,int,int,rgba_t<float>&,int,int,int,int,int,int) {
+
+}
+
+SubDisplayList::SubDisplayList(char *) {
+
+}
+
+SubDisplayList::SubDisplayList(char *, DisplayList *) {
+
+}
+
+SubDisplayList::SubDisplayList(char *, int, DisplayList *) {
+
+}
+
+void SubDisplayList::SetParent(DisplayList*) {
+
+}

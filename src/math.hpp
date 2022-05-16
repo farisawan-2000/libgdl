@@ -59,7 +59,7 @@ float limitf(float, float);
 
 void limitvec(Vector3<float> *,float);
 
-extern "C" void rotate2d();
+extern "C" void rotate2d(float, float *, float *);
 
 float CalcLength(Vector3<float>*);
 

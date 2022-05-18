@@ -7,6 +7,10 @@ class Plane;
 
 class matrix4 {
     public:
+        void _InitSCRot(Vector3<float>*,float,float);
+        void _Align(Vector3<float>*,float);
+        void _Align(Vector3<float>*,Vector3<float>*);
+        void ConvertTo(Quat&);
         void ConvertFrom(Quat&);
         void CopyTo(matrix4*);
         void Copy3x3To(matrix4*);
@@ -32,7 +36,7 @@ class matrix4 {
         void GenPerspective(float,float,float,float);
         void GenLookAt(float,float,float,float,float,float,float,float,float);
         void GenBallRotate(matrix4*,float,float,float,int);
-        matrix4 *operator = (float);
+        matrix4 *operator = (float *);
 
         float m[4][4];
 };
@@ -89,6 +93,13 @@ void print_quat(char*,quat*);
 class LongBox {
     public:
         int InBox(LongBox *);
+        s32 minX;
+        s32 minY;
+        s32 minZ;
+
+        s32 maxX;
+        s32 maxY;
+        s32 maxZ;
 };
 
 class Plane {
@@ -110,6 +121,16 @@ class Quat {
         void Normalise();
         void FromBallPoints(Vector3<float> &, Vector3<float> &);
         void ToBallPoints(Vector3<float> &, Vector3<float> &);
+
+        union {
+            struct {
+                f32 x;
+                f32 y;
+                f32 z;
+                f32 w;
+            } s;
+            f32 q[4];
+        };
 };
 
 class VQS {
@@ -121,11 +142,19 @@ class VQS {
 class MtxStack {
     public:
         MtxStack();
+        matrix4 stack[32];
 };
 
 class Box {
     public:
         void Print();
+        f32 minX;
+        f32 minY;
+        f32 minZ;
+
+        f32 maxX;
+        f32 maxY;
+        f32 maxZ;
 };
 
 #endif
